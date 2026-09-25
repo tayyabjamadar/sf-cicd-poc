@@ -1,0 +1,28 @@
+name: Deploy to Secondary Org
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    environment: poc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: npm install -g @salesforce/cli
+
+      - name: Restore auth URL
+        run: echo "${{ secrets.SF_SECONDARY_ORG_AUTH_URL }}" > authfile.txt
+
+      - name: Auth to secondary org
+        run: sf org login sfdx-url -f authfile.txt -a targetOrg2 --set-default
+
+      - name: Deploy source
+        run: sf project deploy start -o targetOrg2
+
+      - name: Run Apex tests
+        run: sf apex run test -o targetOrg2 -c -r human --wait 15 -y

@@ -11,4 +11,12 @@ private class HelloWorldTest {
         HelloWorld hw = new HelloWorld();
         System.assertNotEquals(null, hw, 'HelloWorld instance should not be null');
     }
+
+    @IsTest
+    static void testHelloWorldBasicBehavior() {
+        Test.startTest();
+        HelloWorld hw = new HelloWorld();
+        Test.stopTest();
+        System.assertNotEquals(null, hw);
+    }
 }
