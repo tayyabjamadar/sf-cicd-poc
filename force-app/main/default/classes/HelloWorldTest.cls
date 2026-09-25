@@ -14,7 +14,9 @@ private class HelloWorldTest {
 
     @IsTest
     static void testHelloWorldBasicBehavior() {
+        Test.startTest();
         HelloWorld hw = new HelloWorld();
-        System.assert(hw instanceof HelloWorld, 'hw should be instance of HelloWorld');
+        Test.stopTest();
+        System.assertNotEquals(null, hw);
     }
 }
