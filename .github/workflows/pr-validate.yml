@@ -15,7 +15,7 @@ jobs:
         run: npm install -g @salesforce/cli
 
       - name: show URL
-        run: echo "${{ secrets.SF_AUTH_URL }}"       
+        run: echo "${{ secrets.SF_AUTH_URL }}"
 
       - name: Restore Dev Hub auth URL
         run: echo "${{ secrets.SF_AUTH_URL }}" > authfile.txt
