@@ -40,12 +40,25 @@ public with sharing class AccountActivityController {
         @AuraEnabled
         public DateTime createdDate { get; set; }
 
+        @AuraEnabled
+        public String statusClass { get; set; }
+
         public AccountActivityWrapper(Id taskId, String subject, String status, Date activityDate, DateTime createdDate) {
             this.taskId = taskId;
             this.subject = subject;
             this.status = status;
             this.activityDate = activityDate;
             this.createdDate = createdDate;
+            this.statusClass = getStatusClass(status);
+        }
+
+        private String getStatusClass(String status) {
+            if (status == 'Completed') {
+                return 'slds-badge_success';
+            } else if (status == 'In Progress') {
+                return 'slds-badge_info';
+            }
+            return '';
         }
     }
 }
