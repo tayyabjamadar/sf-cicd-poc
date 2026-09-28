@@ -23,5 +23,4 @@ export default class AccountActivityTracker extends LightningElement {
     get hasActivities() {
         return this.activities.length > 0;
     }
-
 }

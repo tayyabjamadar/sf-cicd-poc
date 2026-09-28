@@ -54,11 +54,11 @@ public with sharing class AccountActivityController {
 
         private String getStatusClass(String status) {
             if (status == 'Completed') {
-                return 'slds-badge_success';
+                return 'slds-badge slds-badge_success';
             } else if (status == 'In Progress') {
-                return 'slds-badge_info';
+                return 'slds-badge slds-badge_info';
             }
-            return '';
+            return 'slds-badge';
         }
     }
 }
