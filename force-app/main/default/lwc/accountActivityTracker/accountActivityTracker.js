@@ -24,17 +24,4 @@ export default class AccountActivityTracker extends LightningElement {
         return this.activities.length > 0;
     }
 
-    formatDate(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US');
-    }
-
-    getStatusClass(status) {
-        const statusMap = {
-            'Completed': 'slds-badge slds-badge_success',
-            'In Progress': 'slds-badge slds-badge_info',
-            'Not Started': 'slds-badge slds-badge_lightest'
-        };
-        return statusMap[status] || 'slds-badge';
-    }
 }

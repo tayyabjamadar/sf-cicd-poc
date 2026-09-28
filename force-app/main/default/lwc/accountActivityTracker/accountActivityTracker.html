@@ -35,11 +35,11 @@
                             <tr key={activity.taskId}>
                                 <td>{activity.subject}</td>
                                 <td>
-                                    <span class={getStatusClass(activity.status)}>
+                                    <span class="slds-badge" class:slds-badge_success={activity.status === 'Completed'} class:slds-badge_info={activity.status === 'In Progress'}>
                                         {activity.status}
                                     </span>
                                 </td>
-                                <td>{formatDate(activity.activityDate)}</td>
+                                <td>{activity.activityDate}</td>
                             </tr>
                         </template>
                     </tbody>
