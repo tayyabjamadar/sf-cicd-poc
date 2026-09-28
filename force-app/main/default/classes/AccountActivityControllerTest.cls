@@ -51,12 +51,13 @@ private class AccountActivityControllerTest {
 
     @IsTest
     static void testAccountActivityWrapper() {
+        Task testTask = [SELECT Id FROM Task LIMIT 1];
         Date testDate = Date.today();
         DateTime testDateTime = DateTime.now();
 
         AccountActivityController.AccountActivityWrapper wrapper =
             new AccountActivityController.AccountActivityWrapper(
-                '001xx000003DHP',
+                testTask.Id,
                 'Test Task',
                 'Completed',
                 testDate,
@@ -66,5 +67,24 @@ private class AccountActivityControllerTest {
         System.assertEquals('Test Task', wrapper.subject);
         System.assertEquals('Completed', wrapper.status);
         System.assertEquals(testDate, wrapper.activityDate);
+    }
+
+    @IsTest
+    static void testAccountActivityWrapperStatusClasses() {
+        Task testTask = [SELECT Id FROM Task LIMIT 1];
+        Date testDate = Date.today();
+        DateTime testDateTime = DateTime.now();
+
+        AccountActivityController.AccountActivityWrapper inProgressWrapper =
+            new AccountActivityController.AccountActivityWrapper(
+                testTask.Id, 'In Progress Task', 'In Progress', testDate, testDateTime
+            );
+        System.assertEquals('slds-badge slds-badge_info', inProgressWrapper.statusClass);
+
+        AccountActivityController.AccountActivityWrapper otherWrapper =
+            new AccountActivityController.AccountActivityWrapper(
+                testTask.Id, 'Other Task', 'Not Started', testDate, testDateTime
+            );
+        System.assertEquals('slds-badge', otherWrapper.statusClass);
     }
 }
