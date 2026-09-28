@@ -1,0 +1,60 @@
+<template>
+    <div class="slds-m-around_medium">
+        <h2 class="slds-text-heading_medium slds-m-bottom_medium">Account Activity</h2>
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading activities..."></lightning-spinner>
+        </template>
+
+        <template if:true={error}>
+            <lightning-card variant="narrow">
+                <div class="slds-p-around_medium slds-text-color_error">
+                    Error loading activities: {error.body.message}
+                </div>
+            </lightning-card>
+        </template>
+
+        <template if:true={hasActivities}>
+            <lightning-card variant="narrow">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                    <thead>
+                        <tr class="slds-text-heading_label">
+                            <th scope="col">
+                                <div class="slds-truncate">Subject</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate">Status</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate">Activity Date</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={activities} for:item="activity">
+                            <tr key={activity.taskId}>
+                                <td>{activity.subject}</td>
+                                <td>
+                                    <span class={getStatusClass(activity.status)}>
+                                        {activity.status}
+                                    </span>
+                                </td>
+                                <td>{formatDate(activity.activityDate)}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </lightning-card>
+        </template>
+
+        <template if:false={hasActivities}>
+            <template if:false={isLoading}>
+                <lightning-card variant="narrow">
+                    <div class="slds-p-around_medium slds-text-align_center">
+                        No activities found
+                    </div>
+                </lightning-card>
+            </template>
+        </template>
+    </div>
+</template>
