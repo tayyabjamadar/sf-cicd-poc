@@ -35,9 +35,17 @@
                             <tr key={activity.taskId}>
                                 <td>{activity.subject}</td>
                                 <td>
-                                    <span class:slds-badge={true} class:slds-badge_success={activity.status === 'Completed'} class:slds-badge_info={activity.status === 'In Progress'}>
-                                        {activity.status}
-                                    </span>
+                                    <template if:true={activity.status === 'Completed'}>
+                                        <span class="slds-badge slds-badge_success">{activity.status}</span>
+                                    </template>
+                                    <template if:true={activity.status === 'In Progress'}>
+                                        <span class="slds-badge slds-badge_info">{activity.status}</span>
+                                    </template>
+                                    <template if:false={activity.status === 'Completed'}>
+                                        <template if:false={activity.status === 'In Progress'}>
+                                            <span class="slds-badge">{activity.status}</span>
+                                        </template>
+                                    </template>
                                 </td>
                                 <td>{activity.activityDate}</td>
                             </tr>
